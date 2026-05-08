@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>验证码接入示例</title>
+    <!-- 验证码程序依赖(必须)。
+    请勿修改以下程序依赖，如通过其他手段规避加载（如CDN、代理、缓存等），
+    会导致验证码无法正常更新，对抗能力无法保证，甚至引起误拦截
+    详细参考：https://qaqbuyan.com:88/buyan_captcha_intro.html#%E8%B0%83%E7%94%A8%E6%96%B9%E6%B3%95 的注意事项
+    -->
+    <script src="https://qaqbuyan.com:88/buyan_captcha?js" type="text/javascript"></script>
+    <!-- 引入样式
+    正常情况下，会检测当前页面环境并自动植入样式表，当然开发者也可手动在页面植入样式表
+    如果组件没有自动植入，再手动在植入即可，默认情况下无需专门在页面中植入样式表，只需要引入脚本即可
+    -->
+    <!-- <link rel="stylesheet" href="https://qaqbuyan.com:88/buyan_captcha?css" type="text/css" /> -->
+</head>
+
+<body>
+    <div>
+        <!-- 预留的容器，用于插入验证码组件 -->
+        <div id="captcha-div"></div>
+        <button id="login">登录</button>
+    </div>
+    <script>
+        // 调用方法 1.JS API校验
+        buyanBehaviorCaptcha({
+            token: '', // 请替换为您的验证码token
+            click: "none", // 监听模式，默认none
+            insertion: "#captcha-div", // 插入位置
+            success: function (params, reset) { // 验证成功回调，params为验证票据，reset为重新拉起验证码函数
+                // 验证成功后，将验证票据提交到您的后台，再调用 Buyan-Captcha 做二次校验
+                // 校验通过后，返回校验通过结果到应用后端，再返回到前端
+                // 校验失败后，可以调用 reset 函数进行重新拉起验证码
+                // 请参考：https://qaqbuyan.com:88/buyan_captcha_intro.html#%E8%B0%83%E7%94%A8%E6%96%B9%E6%B3%95
+                console.log(params);
+            }
+        });
+    </script>
+    <!--
+    2. Data API校验说明
+    Buyan-Captcha 支持通过自定义属性 buyan-captcha-config 自动初始化 UI 控件
+    在需要的元素上添加 buyan-captcha-config 属性，属性值为 JSON 格式的配置信息
+    Buyan-Captcha 会自动解析配置信息并初始化 UI 控件
+    -->
+    <!-- <div buyan-captcha-config='{"token":"your_token_here","click":"#getting","insertion":"#captcha-div","success":function(code,reset){console.log("验证成功，票据：",code);},"update":function(){console.log("Token已过期，请刷新");},"fail":function(){console.log("验证失败");}}'></div> -->
+</body>
+
+</html>
